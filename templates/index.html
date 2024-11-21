@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>吃啥</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link href="/static/css/index.css" rel="stylesheet">
+
+</head>
+<body class="d-flex h-100 text-center text-white bg-dark">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+        <div>
+            <h3 class="float-md-start mb-0">这顿吃点啥</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="#">Menu</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="px-3">
+        <h1 id="food-title">今天吃啥呢</h1>
+        <p class="lead mt-2">
+            <a href="javascript:void(0);" class="btn btn-lg btn-secondary fw-bold border-white bg-white"
+               style="color: #212529;" onclick="toggleRandomFood()">抽一个</a>
+        </p>
+    </main>
+
+    <footer class="mt-auto text-white-50">
+        <p>Edit by <a class="text-white" onclick="showToast()">Nagasaki soyo</a>.
+            长期素食导致的不知道吃啥.</p>
+    </footer>
+</div>
+
+<!-- Toast HTML -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="editToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Notification</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Edited by Nagasaki soyo.
+        </div>
+    </div>
+</div>
+
+<script>
+    const foods = ["土豆泥拌饭", "听二汉堡", "炸鸡腿", "听一自选", "听一汉堡", "黄金脆鸡堡×2", "全鸡", "茶香鸡", "滑蛋饭", "家常菜", "五谷鱼粉", "肉夹馍", "睡觉简单", "花甲粉", "烤肉拌饭", "炒饭", "炒方便面", "咖喱鸡排饭", "黄焖鸡米饭", "猪肚鸡", "麻辣香锅", "麻辣烫"];
+    let intervalId;
+    let isRunning = false;
+
+    function toggleRandomFood() {
+        const button = document.querySelector('a[onclick="toggleRandomFood()"]');
+        const foodTitle = document.getElementById('food-title');
+
+        if (isRunning) {
+            clearInterval(intervalId);
+            button.textContent = '抽一个';
+        } else {
+            intervalId = setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * foods.length);
+                foodTitle.textContent = foods[randomIndex];
+            }, 100);
+            button.textContent = '停止';
+        }
+        isRunning = !isRunning;
+    }
+
+    function showToast() {
+        const toastElement = document.getElementById('editToast');
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-m8fnrzriS+K9UdaDHdBgNfXMAURqWvA2rK5o/xq2kNx9RG3dZAcKo59qXnE9iLUU"
+        crossorigin="anonymous"></script>
+</body>
+</html>
